@@ -26,9 +26,6 @@ public class ClientService {
                 .orElseThrow(()->new IllegalArgumentException("Client Id not found"));
     }
 
-    public Client getClientByCin(String cin){
-        return clientRepository.findByCin(cin)
-                .orElseThrow(()->new IllegalArgumentException("Client Cin not found"));
-    }
+
 
 }

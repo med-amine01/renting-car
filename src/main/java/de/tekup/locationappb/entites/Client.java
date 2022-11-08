@@ -15,6 +15,8 @@ public class Client {
     private String cin;
     @Column(length = 50)
     private String nom;
+    @Column(length = 50)
+    private String prenom;
 
     private String adresse;
     @OneToMany(mappedBy = "client")
