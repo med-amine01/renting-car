@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -26,6 +27,12 @@ public class ClientService {
                 .orElseThrow(()->new IllegalArgumentException("Client Id not found"));
     }
 
-
+    @PostConstruct
+    private void addClientsToDB(){
+        if(clientRepository.count()==0){
+            saveClient(new Client("12345678","Doe","John","NY"));
+            saveClient(new Client("12345679","Doe","Jane","Cal"));
+        }
+    }
 
 }
