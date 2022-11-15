@@ -15,4 +15,9 @@ public class ViewCtrl {
         model.addAttribute("date",today);
         return "index";
     }
+
+    @GetMapping("/about")
+    public String aboutPage(){
+        return "about";
+    }
 }
