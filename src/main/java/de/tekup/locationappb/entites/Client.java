@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -18,10 +21,14 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @Column(unique = true,nullable = false,length = 8)
+    @Pattern(regexp = "^[0-9]{8}$", message = "CIN must contains exactly 8 digits")
     private String cin;
     @Column(length = 50)
+    @NotBlank
+    @Size(min=3,max = 50)
     private String nom;
     @Column(length = 50)
+    @Size(min=3,max = 50)
     private String prenom;
 
     private String adresse;
