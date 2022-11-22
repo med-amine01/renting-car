@@ -28,7 +28,7 @@ public class VoitureService {
                 .findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("Voiture ID not Found"));
     }
-    @PostConstruct
+    //@PostConstruct
     private void addVoituresToEmptyDB(){
         if(voitureRepository.count()==0){
             insertIntoDB(new Voiture("00Tunis0001",

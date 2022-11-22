@@ -27,7 +27,7 @@ public class ClientService {
                 .orElseThrow(()->new IllegalArgumentException("Client Id not found"));
     }
 
-    @PostConstruct
+    //@PostConstruct
     private void addClientsToDB(){
         if(clientRepository.count()==0){
             saveClient(new Client("12345678","Doe","John","NY"));
