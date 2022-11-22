@@ -2,7 +2,7 @@ package de.tekup.locationappb.repositories;
 
 
 import de.tekup.locationappb.entites.Voiture;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface VoitureRepository extends CrudRepository<Voiture,Integer> {
+public interface VoitureRepository extends PagingAndSortingRepository<Voiture,Integer> {
 }

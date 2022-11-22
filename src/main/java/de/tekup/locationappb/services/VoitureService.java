@@ -4,6 +4,8 @@ package de.tekup.locationappb.services;
 import de.tekup.locationappb.entites.Voiture;
 import de.tekup.locationappb.repositories.VoitureRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
@@ -37,5 +39,9 @@ public class VoitureService {
                     LocalDate.of(2022,01,04),"POLO 8"));
         }
 
+    }
+
+    public Page<Voiture> getPageVoitures(Pageable pageable){
+        return voitureRepository.findAll(pageable);
     }
 }
