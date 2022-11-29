@@ -1,5 +1,6 @@
 package de.tekup.locationappb.controllers;
 
+import de.tekup.locationappb.entites.Client;
 import de.tekup.locationappb.entites.Voiture;
 import de.tekup.locationappb.services.VoitureService;
 import lombok.AllArgsConstructor;
@@ -7,10 +8,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -42,5 +43,22 @@ public class ViewVoitureCtrl {
             model.addAttribute("pageNumbers", pageNumbers);
         }
         return "car";
+    }
+
+    @GetMapping("/add")
+    public String ajouterVoiture(Model model){
+        model.addAttribute("voiture",new Voiture());
+        model.addAttribute("update",false);
+        return "voitures-add";
+    }
+
+    @PostMapping("/add")
+    public String addVoiturePost(@Valid @ModelAttribute("voiture") Voiture voiture
+            , BindingResult result){
+        if (result.hasErrors()){
+            return "voitures-add";
+        }
+        voitureService.insertIntoDB(voiture);
+        return "redirect:/voitures/ui/display";
     }
 }

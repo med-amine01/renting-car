@@ -42,6 +42,6 @@ public class VoitureService {
     }
 
     public Page<Voiture> getPageVoitures(Pageable pageable){
-        return voitureRepository.findAll(pageable);
+                return voitureRepository.findAll(pageable);
     }
 }
