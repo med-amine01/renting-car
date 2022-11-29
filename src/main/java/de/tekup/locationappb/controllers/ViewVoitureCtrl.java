@@ -1,5 +1,6 @@
 package de.tekup.locationappb.controllers;
 
+import de.tekup.locationappb.config.FileUploadUtil;
 import de.tekup.locationappb.entites.Client;
 import de.tekup.locationappb.entites.Voiture;
 import de.tekup.locationappb.services.VoitureService;
@@ -8,8 +9,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -54,11 +57,21 @@ public class ViewVoitureCtrl {
 
     @PostMapping("/add")
     public String addVoiturePost(@Valid @ModelAttribute("voiture") Voiture voiture
-            , BindingResult result){
+            , BindingResult result, @RequestParam("fileImg") MultipartFile multipartFile){
+
         if (result.hasErrors()){
             return "voitures-add";
         }
         voitureService.insertIntoDB(voiture);
-        return "redirect:/voitures/ui/display";
+        if(!multipartFile.isEmpty()){
+            String orgFileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            String ext = orgFileName.substring(orgFileName.lastIndexOf("."));
+            String uploadDir = "voitures-photos/";
+            String fileName = "voiture-"+voiture.getId()+ext;
+            FileUploadUtil.saveFile(uploadDir,fileName,multipartFile);
+            voiture.setImagePath("/"+uploadDir+fileName);
+            voitureService.insertIntoDB(voiture);
+        }
+        return "redirect:/voitures/ui/";
     }
 }
