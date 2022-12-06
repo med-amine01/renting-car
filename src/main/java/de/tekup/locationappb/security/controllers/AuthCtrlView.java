@@ -25,6 +25,11 @@ public class AuthCtrlView {
         return "signup";
     }
 
+    @GetMapping("/signin")
+    public String loginUser(){
+        return "signin";
+    }
+
     @PostMapping("/signup")
     public String registerUserPost(@Valid @ModelAttribute("user") User user
                         , BindingResult result){
