@@ -19,11 +19,14 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers("/","/signin","/signup","/css/**","/js/**","/fonts/**","/images/**","/scss/**")
                 .permitAll()
+                .antMatchers("/clients/ui/**","/voitures/ui/**").hasRole("ADMIN")
+                .antMatchers("/voitures/ui/").hasRole("USER")
                 .anyRequest()
                 .authenticated()
                 .and().formLogin()
                 .defaultSuccessUrl("/")
                 .loginPage("/signin")
+                .and().logout().logoutSuccessUrl("/")
                 .and().userDetailsService(bdUserDetailsService)
                 .build();
 
