@@ -8,6 +8,7 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -33,9 +34,9 @@ public class SecurityConfig {
     private UserDetailsService bdUserDetailsService;
     private RsaKeyProperties rsaKeys;
 
-    //@Bean
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
+        return http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/","/signin","/signup","/css/**","/js/**","/fonts/**","/images/**","/scss/**")
                 .permitAll()
@@ -53,6 +54,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Order(1)
     public SecurityFilterChain jwtSecurityFilterChain(HttpSecurity http) throws Exception {
 
         return http

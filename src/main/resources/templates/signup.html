@@ -21,6 +21,8 @@
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                       <form action="/signup" method="post" class="bg-light p-5 contact-form" th:object="${user}">
+                        <input type="hidden" name="${_csrf.parameterName}"
+                               value="${_csrf.token}" />
                         <input type="text" class="form-control" placeholder="Id" th:field="*{id}" hidden>
                         <div class="form-group">
                           <input type="text" class="form-control" placeholder="Name" th:field="*{name}" required>
