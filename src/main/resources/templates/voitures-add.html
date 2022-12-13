@@ -31,6 +31,8 @@
                 <div class="row">
                     <div class="col-md-6 offset-md-3">
                       <form action="/voitures/ui/add" method="post" class="bg-light p-5 contact-form" enctype="multipart/form-data" th:object="${voiture}">
+                        <input type="hidden" name="${_csrf.parameterName}"
+                               value="${_csrf.token}" />
                         <input type="text" class="form-control" placeholder="Id" th:field="*{id}" hidden>
                         <div class="form-group">
                           <input type="text" class="form-control" placeholder="Serie" th:field="*{serie}" required>

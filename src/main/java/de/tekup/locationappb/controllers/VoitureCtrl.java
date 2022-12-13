@@ -9,30 +9,27 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
+@RequestMapping("/api")
 @AllArgsConstructor
 public class VoitureCtrl {
 
     private VoitureService voitureService;
     @PostMapping("/voitures/save")
-    @ResponseBody
     public Voiture saveVoiture(@RequestBody Voiture voiture){
         return voitureService.insertIntoDB(voiture);
     }
     @GetMapping("/voitures")
-    @ResponseBody
     public List<Voiture> getAllVoitures(){
         return voitureService.getAllVoitures();
     }
 
     @GetMapping("/voitures/{id}")
-    @ResponseBody
     public Voiture getVoitureById(@PathVariable("id") int voitureId){
         return voitureService.getVoitureById(voitureId);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
-    @ResponseBody
     public String handleIllegalArgumentException(IllegalArgumentException e ){
         return e.getMessage();
     }
