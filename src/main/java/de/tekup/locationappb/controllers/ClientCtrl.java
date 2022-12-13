@@ -3,6 +3,7 @@ package de.tekup.locationappb.controllers;
 import de.tekup.locationappb.entites.Client;
 import de.tekup.locationappb.services.ClientService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ public class ClientCtrl {
     private ClientService clientService;
 
     @RequestMapping(path = "/clients/add",method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public Client saveClient(@RequestBody Client client){
         return clientService.saveClient(client);
     }
